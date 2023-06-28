@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <ProductView />
+    <ProductView :member="member" />
   </div>
 </template>
 
@@ -11,6 +11,11 @@ export default {
   name: 'App',
   components: {
     ProductView
-  }
+  },
+  data() {
+    return {
+      member: false
+    }
+  },
 }
 </script>

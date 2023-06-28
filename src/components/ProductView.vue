@@ -32,18 +32,36 @@
             >
             </span>
           </div>
+          <div class="shipping">Shipping: {{ shipping }}</div>
           <div class="addCart">
             <button @click="addToCart" :disabled="inventory <= 0" :class="{ disabledState: inventory <= 0 }">Add to Cart</button>
           </div>
         </div>
       </div>
     </div>
+
+    <ProductReview />
+    <ProductTabs />
   </div>
 </template>
 
 <script>
+import ProductReview from './ProductReview.vue';
+import ProductTabs from './ProductTabs.vue';
+
 export default {
   name: 'ProductView',
+  components: {
+    ProductReview,
+    ProductTabs
+  },
+  props: {
+    member: {
+      type: Boolean,
+      required: true
+    }
+  },
+
   data() {
     return {
       brand: 'Nike',
@@ -93,6 +111,12 @@ export default {
     },
     inventory() {
       return this.variants[this.selectedVariant].variantQty;
+    },
+    shipping() {
+      if (this.member) {
+        return 'FREE'
+      }
+      return '$' + 2.99
     }
   },
 }
