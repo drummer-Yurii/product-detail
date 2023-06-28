@@ -23,12 +23,17 @@
             <li v-for="(feature, index) in features" :key="index">{{ feature }}</li>
           </ul>
           <div class="variants">
-            <span v-for="variant in variants" :key="variant.variantId" @mouseover="updateImage(variant.variantImage)">
-              {{ variant.variantColor }}
+            <span 
+              v-for="variant in variants" 
+              :key="variant.variantId" 
+              @mouseover="updateImage(variant.variantImage)"
+              class="colorBox"
+              :style="{ backgroundColor: variant.variantColor }"
+            >
             </span>
           </div>
           <div class="addCart">
-            <button @click="addToCart">Add to Cart</button>
+            <button @click="addToCart" :disabled="inventory <= 0" :class="{ disabledState: inventory <= 0 }">Add to Cart</button>
           </div>
         </div>
       </div>
