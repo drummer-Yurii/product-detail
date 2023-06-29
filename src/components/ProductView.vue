@@ -31,9 +31,8 @@
           </div>
         </div>
       </div>
-    </div>
-
     <ProductReview />
+    </div>
     <ProductTabs />
   </div>
 </template>
