@@ -1,6 +1,12 @@
 <template>
     <div>
         <form class="review-form" @submit.prevent="onSubmit">
+            <div class="errorMessage" v-if="errors.length">
+                <h3>Please correct the following error (s)</h3>
+                <ul>
+                    <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+                </ul>
+            </div>
             <div class="row">
                 <label for="name">Name:</label>
                 <input type="text" id="name" v-model="name" />
@@ -27,17 +33,20 @@
 </template>
 
 <script>
-    export default {
-        name: 'ProductReview',
-        data() {
-            return {
-                name: null,
-                review: null,
-                rating: null
-            }
-        },
-        methods: {
-            onSubmit() {
+export default {
+    name: 'ProductReview',
+    data() {
+        return {
+            name: null,
+            review: null,
+            rating: null,
+            errors: []
+        }
+    },
+    methods: {
+        onSubmit() {
+            this.errors = []
+            if (this.name && this.review && this.rating) {
                 let productReview = {
                     name: this.name,
                     review: this.review,
@@ -48,6 +57,12 @@
                 this.review = null
                 this.rating = null
             }
-        },
-    }
+            else {
+                if (!this.name) this.errors.push("Name required.")
+                if (!this.review) this.errors.push("Review required.")
+                if (!this.rating) this.errors.push("Rating required.")
+            }
+        }
+    },
+}
 </script>
