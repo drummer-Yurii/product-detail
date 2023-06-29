@@ -1,12 +1,5 @@
 <template>
   <div>
-    <header id="header">
-      <div class="container">
-        <div class="cart">
-          <p><i class="fas fa-shopping-cart"></i> {{ cart }}</p>
-        </div>
-      </div>
-    </header>
     <div class="container">
       <div class="product">
         <div class="image">
@@ -67,7 +60,6 @@ export default {
       brand: 'Nike',
       product: 'Air Force',
       selectedVariant: 0,
-      cart: 0,
       features: ["Durable leather", "Secure lace up", "Padded ankle collar"],
       variants: [
         {
@@ -94,7 +86,7 @@ export default {
 
   methods: {
     addToCart() {
-      this.cart += 1;
+      this.$emit('addtocart', this.variants[this.selectedVariant].variantId);
     },
     updateImage(index) {
       this.selectedVariant = index;

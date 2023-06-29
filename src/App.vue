@@ -1,6 +1,13 @@
 <template>
   <div id="app">
-    <ProductView :member="member" />
+    <header id="header">
+        <div class="container">
+          <div class="cart">
+            <p><i class="fas fa-shopping-cart"></i> {{ cart.length }}</p>
+          </div>
+        </div>
+      </header>
+    <ProductView :member="member" @addtocart="updatecart" />
   </div>
 </template>
 
@@ -14,7 +21,13 @@ export default {
   },
   data() {
     return {
-      member: false
+      member: false,
+      cart: [],
+    }
+  },
+  methods: {
+    updatecart(id) {
+      this.cart.push(id);
     }
   },
 }
