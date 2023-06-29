@@ -31,7 +31,17 @@
           </div>
         </div>
       </div>
-    <ProductReview />
+      <div class="reviews">
+        <h2>Reviews</h2>
+        <p v-if="!reviews.length">There are no reviews yet.</p>
+        <ul>
+          <li v-for="(review, index) in reviews" :key="index">
+            <p>{{ review.review }}</p>
+            <span>- {{ review.name }}, <strong>Rating:</strong> {{ review.rating }}</span>
+          </li>
+        </ul>
+      </div>
+    <ProductReview @review-submitted="addReview" />
     </div>
     <ProductTabs />
   </div>
@@ -79,7 +89,8 @@ export default {
           variantImage: require('../assets/images/nike-black.jpg'),
           variantQty: 0,
         },
-      ]
+      ],
+      reviews: []
     }
   },
 
@@ -90,6 +101,9 @@ export default {
     updateImage(index) {
       this.selectedVariant = index;
       console.log(index);
+    },
+    addReview(productReview) {
+      this.reviews.push(productReview);
     }
   },
 
