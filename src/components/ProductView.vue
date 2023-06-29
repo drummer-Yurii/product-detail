@@ -31,30 +31,18 @@
           </div>
         </div>
       </div>
-      <div class="reviews">
-        <h2>Reviews</h2>
-        <p v-if="!reviews.length">There are no reviews yet.</p>
-        <ul>
-          <li v-for="(review, index) in reviews" :key="index">
-            <p>{{ review.review }}</p>
-            <span>- {{ review.name }}, <strong>Rating:</strong> {{ review.rating }}</span>
-          </li>
-        </ul>
-      </div>
-    <ProductReview @review-submitted="addReview" />
+      <ProductTabs :reviews="reviews" />
     </div>
-    <ProductTabs />
   </div>
 </template>
 
 <script>
-import ProductReview from './ProductReview.vue';
+import {eventBus} from '@/main';
 import ProductTabs from './ProductTabs.vue';
 
 export default {
   name: 'ProductView',
   components: {
-    ProductReview,
     ProductTabs
   },
   props: {
@@ -101,9 +89,6 @@ export default {
     updateImage(index) {
       this.selectedVariant = index;
       console.log(index);
-    },
-    addReview(productReview) {
-      this.reviews.push(productReview);
     }
   },
 
@@ -123,6 +108,11 @@ export default {
       }
       return '$' + 2.99
     }
+  },
+  mounted () {
+    eventBus.$on('review-submitted', productReview => {
+      this.reviews.push(productReview);
+    });
   },
 }
 </script>
